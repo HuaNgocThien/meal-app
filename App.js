@@ -1,10 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CategoriesScreen from "./screens/CategoriesScreen";
+import TestScreen from "./screens/TestScreen";
 import * as SplashScreen from "expo-splash-screen";
+import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
+import MealOverviewScreen from "./screens/MealOverviewScreen";
+import Colors from "./constants/Colors";
 
 SplashScreen.preventAutoHideAsync();
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -18,17 +26,58 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     if (fontLoaded) {
-      await SplashScreen.hideAsync();
+      try {
+        await SplashScreen.hideAsync();
+      } catch (error) {
+        console.warn("SplashScreen hide error:", error);
+      }
     }
   }, [fontLoaded]);
 
   if (!fontLoaded) {
-    return null;
+    return (
+      <View style={styles.container}>
+        <Text>Loading fonts...</Text>
+      </View>
+    );
   }
 
   return (
-    <View onLayout={onLayoutRootView}>
-      <CategoriesScreen />
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="MealsCategories" screenOptions={{contentStyle: {backgroundColor:Colors.whiteApp}}}>
+          <Stack.Screen
+            name="MealsCategories"
+            component={CategoriesScreen}
+            options={{
+              title: "All Categories",
+              headerTitleStyle: {
+                fontFamily: "playfair",
+                fontSize: 24,
+              },
+            }}
+          />
+          <Stack.Screen
+            name="MealsOverview"
+            component={MealOverviewScreen}
+            // options={{
+            //   headerLeft: () => (
+            //     <Pressable
+            //       onPress={() => navigation.goBack()}
+            //       style={{ marginLeft: 10 }}
+            //     >
+            //       <Ionicons
+            //         name="arrow-back"
+            //         size={24}
+            //         color="#96ce5f"
+            //       />
+            //     </Pressable>
+            //   ),
+            // }}
+          />
+        </Stack.Navigator>
+        {/* <CategoriesScreen /> */}
+      </NavigationContainer>
     </View>
   );
 }
@@ -36,8 +85,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

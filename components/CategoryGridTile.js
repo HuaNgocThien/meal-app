@@ -1,7 +1,7 @@
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 import Colors from "../constants/Colors";
 
-function CategoryGridTile({ title, color }) {
+function CategoryGridTile({ title, color, onPress }) {
   const containerStyle =
     Platform.OS === "android"
       ? [
@@ -26,6 +26,7 @@ function CategoryGridTile({ title, color }) {
           styles.button,
           pressed ? styles.buttonIOSPressed : null,
         ]}
+        onPress={onPress}
       >
         <View style={innerContainerStyle}>
           <Text style={styles.title}>{title}</Text>
@@ -45,6 +46,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     elevation: 4,
+    shadowColor: "black",
+    shadowOpacity: 0.25,
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 10,
     overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
   innerContainer: {

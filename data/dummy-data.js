@@ -336,4 +336,60 @@ export const MEALS = [
     true,
     true
   ),
+  new Meal(
+    "m11",
+    ["c11"], // Vietnam
+    "Cơm Tấm (Vietnamese Broken Rice)",
+    "affordable",
+    "medium",
+    "https://i1-giadinh.vnecdn.net/2024/03/07/7Honthinthnhphm1-1709800144-8583-1709800424.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=yflkT1zyARjnO_PPyQYBoA",
+    30,
+    [
+      "1 cup broken rice",
+      "1 grilled pork chop",
+      "Scallion oil",
+      "Fish sauce",
+      "Pickled vegetables",
+      "Fried egg (optional)",
+    ],
+    [
+      "Cook the broken rice with water until fully done.",
+      "Marinate the pork chop with seasoning, then grill it over charcoal or pan-fry it.",
+      "Prepare a sweet and sour fish sauce.",
+      "Make pickled vegetables as a side dish.",
+      "Plate everything and serve hot.",
+    ],
+    false,
+    false,
+    false,
+    false
+  ),
+  new Meal(
+    "m12",
+    ["c11"], // Vietnam
+    "Phở Bò (Vietnamese Beef Pho)",
+    "affordable",
+    "complex",
+    "https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/01-Phuong-Mon%20ngon&congthuc/1.%20pho%20ha%20noi/canh-nau-pho-ha-noi-xua-mang-huong-vi-kinh-do-cua-80-nam-ve-truoc-1.jpg",
+    60,
+    [
+      "500g beef bones",
+      "200g sliced beef",
+      "Pho noodles",
+      "Green onions, fresh herbs",
+      "Ginger, shallots, cinnamon, star anise, cardamom",
+      "Seasoning: salt, fish sauce, sugar",
+    ],
+    [
+      "Simmer beef bones in water for about 3-4 hours to extract broth.",
+      "Grill ginger, shallots, cinnamon, star anise, and cardamom, then add them to the broth.",
+      "Blanch the pho noodles in boiling water.",
+      "Place the noodles into a bowl, then add thinly sliced beef on top.",
+      "Pour the hot broth over the beef and enjoy with fresh herbs.",
+    ],
+    false,
+    false,
+    false,
+    false
+  ),
 ];
