@@ -338,7 +338,7 @@ export const MEALS = [
   ),
   new Meal(
     "m11",
-    ["c11"], // Vietnam
+    ["c11", "c8"], // Vietnam
     "Cơm Tấm (Vietnamese Broken Rice)",
     "affordable",
     "medium",
@@ -366,7 +366,7 @@ export const MEALS = [
   ),
   new Meal(
     "m12",
-    ["c11"], // Vietnam
+    ["c11", "c8"], // Vietnam
     "Phở Bò (Vietnamese Beef Pho)",
     "affordable",
     "complex",

@@ -2,17 +2,58 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CategoriesScreen from "./screens/CategoriesScreen";
-import TestScreen from "./screens/TestScreen";
 import * as SplashScreen from "expo-splash-screen";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
 import MealOverviewScreen from "./screens/MealOverviewScreen";
 import Colors from "./constants/Colors";
+import MealDetailScreen from "./screens/MealDetailScreen";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import FavoritesScreen from "./screens/FavoritesScreen";
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        drawerContentStyle: { backgroundColor: Colors.primary },
+        drawerInactiveBackgroundColor: Colors.teaGreen,
+        drawerLabelStyle: {
+          color: Colors.grayText,
+        },
+      }}
+    >
+      <Drawer.Screen
+        name="Category"
+        component={CategoriesScreen}
+        options={{
+          title: "All Categories",
+          headerTitleStyle: {
+            fontFamily: "playfair",
+            fontSize: 24,
+          },
+          drawerIcon: (color, size) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
+          drawerIcon: (color, size) => (
+            <Ionicons name="heart" color={color} size={size} />
+          ),
+        }}
+      />
+    </Drawer.Navigator>
+  );
+}
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -45,12 +86,21 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MealsCategories" screenOptions={{contentStyle: {backgroundColor:Colors.whiteApp}}}>
+        <Stack.Navigator
+          initialRouteName="DrawerScreen"
+          screenOptions={{ contentStyle: { backgroundColor: Colors.whiteApp } }}
+        >
           <Stack.Screen
-            name="MealsCategories"
-            component={CategoriesScreen}
+            name="DrawerScreen"
+            component={DrawerNavigator}
             options={{
-              title: "All Categories",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="MealsOverview"
+            component={MealOverviewScreen}
+            options={{
               headerTitleStyle: {
                 fontFamily: "playfair",
                 fontSize: 24,
@@ -58,25 +108,17 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="MealsOverview"
-            component={MealOverviewScreen}
-            // options={{
-            //   headerLeft: () => (
-            //     <Pressable
-            //       onPress={() => navigation.goBack()}
-            //       style={{ marginLeft: 10 }}
-            //     >
-            //       <Ionicons
-            //         name="arrow-back"
-            //         size={24}
-            //         color="#96ce5f"
-            //       />
-            //     </Pressable>
-            //   ),
-            // }}
+            name="MealDetail"
+            component={MealDetailScreen}
+            options={{
+              headerTitleStyle: {
+                fontFamily: "playfair",
+                fontSize: 24,
+              },
+              title: "Let's cook",
+            }}
           />
         </Stack.Navigator>
-        {/* <CategoriesScreen /> */}
       </NavigationContainer>
     </View>
   );
