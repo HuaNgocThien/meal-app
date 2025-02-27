@@ -11,29 +11,40 @@ import MealDetail from "../components/MealDetail";
 import Colors from "../constants/Colors";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 function MealDetailScreen({ route, navigation }) {
+  const favoriteMealContext = useContext(FavoritesContext);
+
   const mealId = route.params.mealId;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  function headerButtonPressHandler() {}
+  const mealIsFavorite = favoriteMealContext.ids.includes(mealId);
+
+  function changeFavoritesStatusHandler() {
+    if (mealIsFavorite) {
+      favoriteMealContext.removeFavorite(mealId);
+    } else {
+      favoriteMealContext.addFavorite(mealId);
+    }
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
           <IconButton
-            onPress={headerButtonPressHandler}
-            icon={"heart"}
-            color={Colors.pink}
+            onPress={changeFavoritesStatusHandler}
+            icon={mealIsFavorite ? "heart" : "heart-outline"}
+            color={mealIsFavorite ? Colors.pink : "black"}
           />
         );
       },
     });
-  }, [navigation]);
+  }, [navigation, changeFavoritesStatusHandler]);
 
   return (
     <ScrollView style={styles.container}>
@@ -64,7 +75,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 8,
-    marginBottom: 30,
+    marginBottom: 35,
   },
   image: {
     width: "100%",

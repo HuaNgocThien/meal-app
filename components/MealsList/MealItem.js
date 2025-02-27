@@ -6,9 +6,9 @@ import {
   View,
   Platform,
 } from "react-native";
-import Colors from "../constants/Colors";
+import Colors from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
-import MealDetail from "./MealDetail";
+import MealDetail from "../MealDetail";
 
 function MealItem({
   id,
@@ -39,7 +39,11 @@ function MealItem({
             <Text style={styles.title}>{title}</Text>
           </View>
         </View>
-        <MealDetail duration={duration} affordability={affordability} complexity={complexity} />
+        <MealDetail
+          duration={duration}
+          affordability={affordability}
+          complexity={complexity}
+        />
       </Pressable>
     </View>
   );

@@ -11,6 +11,7 @@ import Colors from "./constants/Colors";
 import MealDetailScreen from "./screens/MealDetailScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import FavoritesScreen from "./screens/FavoritesScreen";
+import FavoritesContextProvider from "./store/context/favorites-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,7 +23,7 @@ function DrawerNavigator() {
     <Drawer.Navigator
       screenOptions={{
         drawerContentStyle: { backgroundColor: Colors.primary },
-        drawerInactiveBackgroundColor: Colors.teaGreen,
+        drawerActiveBackgroundColor: Colors.lightBlue,
         drawerLabelStyle: {
           color: Colors.grayText,
         },
@@ -85,41 +86,45 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="DrawerScreen"
-          screenOptions={{ contentStyle: { backgroundColor: Colors.whiteApp } }}
-        >
-          <Stack.Screen
-            name="DrawerScreen"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="DrawerScreen"
+            screenOptions={{
+              contentStyle: { backgroundColor: Colors.whiteApp },
             }}
-          />
-          <Stack.Screen
-            name="MealsOverview"
-            component={MealOverviewScreen}
-            options={{
-              headerTitleStyle: {
-                fontFamily: "playfair",
-                fontSize: 24,
-              },
-            }}
-          />
-          <Stack.Screen
-            name="MealDetail"
-            component={MealDetailScreen}
-            options={{
-              headerTitleStyle: {
-                fontFamily: "playfair",
-                fontSize: 24,
-              },
-              title: "Let's cook",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen
+              name="DrawerScreen"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="MealsOverview"
+              component={MealOverviewScreen}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: "playfair",
+                  fontSize: 24,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="MealDetail"
+              component={MealDetailScreen}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: "playfair",
+                  fontSize: 24,
+                },
+                title: "Let's cook",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </View>
   );
 }

@@ -9,7 +9,8 @@ const Colors = {
     pink: "#FD0C9B",
     grayText: "#4A4A4A",
     whiteApp: "#fefefc",
-    teaGreen: "#e5f4d7"
+    teaGreen: "#e5f4d7",
+    lightBlue: "#E3F2FD"
   };
   
   export default Colors;
